@@ -1,0 +1,8 @@
+<script>
+var elem = document.createElement("img");
+var myAnchor = document.getElementById("my_palette");
+var image_url = "{{url_for('static', filename='warehouse/word_clouds/wc.png')}}";
+elem.setAttribute("src", image_url);
+elem.setAttribute("width", "700px");
+myAnchor.parentNode.replaceChild(elem, myAnchor);
+</script>

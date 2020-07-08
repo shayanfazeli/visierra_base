@@ -1,0 +1,10 @@
+flask
+flask-mail
+flask-wtf
+flask-security
+flask-admin
+sklearn
+torch
+matplotlib
+pandas
+numpy

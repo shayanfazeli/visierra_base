@@ -1,0 +1,153 @@
+<!-------------------------------------------------------
+The palette, as always, extends the main master template.
+--------------------------------------------------------->
+{% extends 'admin/master.html' %}
+
+<!-------------------------------------------------------
+The `head_css` block assists us with importing custom CSS
+files. For the Palette, we use the css to style
+json textarea and the button.
+--------------------------------------------------------->
+{% block head_css %}
+{{ super() }}
+<link href="{{url_for('static', filename='css/extra/jsonTextArea.css')}}" rel="stylesheet"></link>
+<link href="{{url_for('static', filename='css/extra/button.css')}}" rel="stylesheet"></link>
+{% endblock %}
+
+<!-------------------------------------------------------
+The tail js is the javascripts that are to be imported at
+the end of the <body> tag's contents.
+--------------------------------------------------------->
+{% block tail_js %}
+{{super()}}
+<script>
+  function prettifyJSONTextArea() {
+    var ugly = document.getElementsByTagName('textarea')[0].value;
+    var obj = JSON.parse(ugly);
+    var pretty = JSON.stringify(obj, undefined, 4);
+    document.getElementsByTagName('textarea')[0].value = pretty;
+  }
+  document.getElementsByTagName('textarea')[0].onclick = prettifyJSONTextArea;
+  var base_width = 1300;
+  var base_height = 500;
+
+  // set the dimensions and margins of the graph
+  var margin = {top: 10, right: 30, bottom: 50, left: 50},
+      width = base_width - margin.left - margin.right,
+      height = base_height - margin.top - margin.bottom;
+</script>
+
+<script src="https://d3js.org/d3.v4.js"></script>
+{% if "js" in visualization_information.keys() %}
+  <script src="{{url_for('static', filename=visualization_information['js'])}}"></script>
+{% endif %}
+
+
+
+<!-------------------------------------------------------
+Palette subtemplates for in-html scripts are to
+be imported in here using Jinja.
+--------------------------------------------------------->
+{% if "html" in visualization_information.keys() %}
+  {% include visualization_information['html'] %}
+{% endif %}
+{% endblock %}
+
+<!-------------------------------------------------------
+The <body> block
+--------------------------------------------------------->
+{% block body %}
+{{ super() }}
+
+{% if current_user.is_authenticated %}
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Visualization Palette
+      <small>Visualizations happen here</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Custom</li>
+    </ol>
+  </section>
+
+  <section class="content">
+
+    <div class="row">
+      <!-- Left col -->
+      <section class="container">
+        <div>
+          <h4>Palette - {{visualization_information['name']}}</h4>
+          <p>{{visualization_information['description']}}</p>
+          <svg id="my_palette" style="width: 1200px; height: 500px; border: 1px solid black;"></svg>
+        </div>
+        <div>
+          <!-------------------------------------------------------
+          The form for receiving the information from the user
+          --------------------------------------------------------->
+          <form action="" method="post" novalidate>
+  {{ form.hidden_tag() }}
+  <p>{{form.visualization.label}}<br>
+  {{form.visualization(size=200)}}<br>
+  {% for error in form.visualization.errors %}
+  <span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+  </p>
+  <p>{{form.dataframe.label}}<br>
+  {{form.dataframe(size=200)}}<br>
+  {% for error in form.dataframe.errors %}
+  <span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+  </p>
+  <p style="width:100%;">{{form.guide.label}}<br>
+  {{form.guide(size=1000)}}<br>
+  {% for error in form.guide.errors %}
+  <span style="color: red;">[{{ error }}]</span>
+  {% endfor %}
+  </p>
+  <p>{{form.submit()}}</p>
+
+</form>
+        </div>
+      </section>
+      <!-- /.Left col -->
+    </div>
+    <!-- /.row (main row) -->
+  </section>
+  <!-- /.content -->
+{% else %}
+
+  <center>
+    <section class="content" style="color: white">
+      <div class="col-sm-12">
+        <h1>Flask-Admin example</h1>
+        <p class="lead">
+          Authentication
+        </p>
+        <p>
+          This example shows how you can use Flask-Admin in an admin template, <br> here I used AdminLTE and <a href="https://pythonhosted.org/Flask-Security/index.html" target="_blank">Flask-Security</a> for authentication.
+        </p>
+        {% if not current_user.is_authenticated %}
+        <p>You can register as a regular user, or log in as a superuser with the following credentials: <br><br>
+
+          email: <b>admin</b> <br>
+          password: <b>admin</b> <br>
+          <br>
+          <p>
+            <a class="btn btn-primary" href="{{ url_for('security.login') }}">Login</a> <a class="btn btn-default" href="{{ url_for('security.register') }}">Register</a>
+          </p>
+          {% endif %}
+          <br>
+          <p>
+            <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+          </p>
+        </div>
+      </section>
+    </center>
+
+    <br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br>
+{% endif %}
+
+{% endblock body %}

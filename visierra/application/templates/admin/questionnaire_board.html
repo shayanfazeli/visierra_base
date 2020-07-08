@@ -1,0 +1,159 @@
+<!-------------------------------------------------------
+The palette, as always, extends the main master template.
+--------------------------------------------------------->
+{% extends 'admin/master.html' %}
+
+<!-------------------------------------------------------
+The `head_css` block assists us with importing custom CSS
+files. For the Palette, we use the css to style
+json textarea and the button.
+--------------------------------------------------------->
+{% block head_css %}
+{{ super() }}
+<link href="{{url_for('static', filename='css/extra/jsonTextArea.css')}}" rel="stylesheet"></link>
+<link href="{{url_for('static', filename='css/extra/button.css')}}" rel="stylesheet"></link>
+{% endblock %}
+
+
+<!-------------------------------------------------------
+The <body> block
+--------------------------------------------------------->
+{% block body %}
+{{ super() }}
+
+{% if current_user.is_authenticated %}
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Questionnaire Board
+      <small>Questionnaires happen here</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Custom</li>
+    </ol>
+  </section>
+
+  <section class="content">
+
+    <div class="row">
+      <!-- Left col -->
+      <section class="container">
+        <div>
+          <h4>Questionnaire Board - {{ questionnaire_info['name'] }}</h4>
+          <p>{{ questionnaire_info['description'] }}</p>
+        </div>
+        <div>
+          <!-------------------------------------------------------
+          The form for receiving the information from the user
+          --------------------------------------------------------->
+          <!-- <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>{{form.first_name.label}}<br>
+            {{form.first_name()}}<br>
+            {% for error in form.first_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+            <p>{{form.last_name.label}}<br>
+            {{form.last_name()}}<br>
+            {% for error in form.last_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+          <p>{{form.email.label}}<br>
+            {{form.email()}}<br>
+            {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+          <p>{{form.country.label}}<br>
+            {{form.country()}}<br>
+            {% for error in form.country.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+            <p>{{form.gender.label}}<br>
+            {{form.gender()}}<br>
+            {% for error in form.gender.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+            <p>{{form.age.label}}<br>
+            {{form.age()}}<br>
+            {% for error in form.age.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+            <p>{{form.level_of_education.label}}<br>
+            {{form.level_of_education()}}<br>
+            {% for error in form.level_of_education.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </p>
+            {%  for i in range(1, 30) %}
+                <p>{{form["question{}".format(i)].label}}<br>
+                {{form["question{}".format(i)]()}}<br>
+                {% for error in form["question{}".format(i)].errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                </p>
+            {% endfor %}
+            <p>{{form.submit()}}</p>
+
+          </form> -->
+          <form action="" method="post" novalidate>
+             {{ form.hidden_tag() }}
+             {% for field in form %}
+                <p>{{ field.label() }}<br>
+                  {{ field() }}<br>
+                </p>
+                {% for error in field.errors %}
+                  <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+             {% endfor %}
+
+             <button type="submit" />
+          </form>
+        </div>
+      </section>
+      <!-- /.Left col -->
+    </div>
+    <!-- /.row (main row) -->
+  </section>
+  <!-- /.content -->
+{% else %}
+
+  <center>
+    <section class="content" style="color: white">
+      <div class="col-sm-12">
+        <h1>Flask-Admin example</h1>
+        <p class="lead">
+          Authentication
+        </p>
+        <p>
+          This example shows how you can use Flask-Admin in an admin template, <br> here I used AdminLTE and <a href="https://pythonhosted.org/Flask-Security/index.html" target="_blank">Flask-Security</a> for authentication.
+        </p>
+        {% if not current_user.is_authenticated %}
+        <p>You can register as a regular user, or log in as a superuser with the following credentials: <br><br>
+
+          email: <b>admin</b> <br>
+          password: <b>admin</b> <br>
+          <br>
+          <p>
+            <a class="btn btn-primary" href="{{ url_for('security.login') }}">Login</a> <a class="btn btn-default" href="{{ url_for('security.register') }}">Register</a>
+          </p>
+          {% endif %}
+          <br>
+          <p>
+            <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+          </p>
+        </div>
+      </section>
+    </center>
+
+    <br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br>
+{% endif %}
+
+{% endblock body %}

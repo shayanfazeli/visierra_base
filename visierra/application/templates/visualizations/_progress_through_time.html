@@ -1,0 +1,12 @@
+<script>
+// Reading the data and working with it
+d3.csv(
+    "{{ url_for('static', filename='warehouse/palette_cache.csv') }}", perform_the_plot
+);
+
+function perform_the_plot(data){
+    var x_range_val = {{ x_range | safe }}
+    var y_range_val = {{ y_range | safe }}
+    plot_parsed_data(data, ["toe", "flat", "normal"], x_range=x_range_val, y_range=y_range_val);
+}
+</script>

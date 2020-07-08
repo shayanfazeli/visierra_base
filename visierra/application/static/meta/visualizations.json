@@ -1,0 +1,22 @@
+[
+  {
+    "name": "walking_chart_during_date_range",
+    "description": "This visualization assists the user by providing an efficient way to look into the shoe data. The viewer, having selected this scheme, chooses a resolution and then proceeds by selecting a start date and end date. This visualization assumes that after the selected routines are executed and now the \"progress_through_time.csv\" has been saved, in which we have columns for \"timestamp, toe, flat, normal\" to mark the timestamps and the types of walking (their counts). The :class:`WalkingPieChartDuringDateRange` contains methodologies for aggregating and summing up all of the step counts that a subject has and compare them against each other in a pie-chart.",
+    "thumbnail": "img/visualization_thumbnails/walking_chart_during_date_range.png"
+  },
+  {
+    "name": "progress_through_time_circular",
+    "description": "This visualization assists the user by providing an efficient way to look into the shoe data. The viewer, having selected this scheme, chooses a resolution and then proceeds by selecting a start date and end date. This visualization assumes that after the selected routines are executed and now the \"progress_through_time_circular.csv\" has been saved, in which we have columns for \"timestamp, toe, flat, normal\" to mark the timestamps and the types of walking (their counts). The :class:`ProgressThroughTimeCircularVisualization` contains methodologies for quantizing the data and aggregating the information according to viewer's defined specifications and output the data. The final observation, being a completely interactive D3.js based visualization, walks the viewer through all the steps.",
+    "thumbnail": "img/visualization_thumbnails/progress_through_time_circular.png"
+  },
+  {
+    "name": "progress_through_time",
+    "description": "This visualization assists the user by providing an efficient way to look into the shoe data. The viewer, having selected this scheme, chooses a resolution and then proceeds by selecting a start date and end date. This visualization assumes that after the selected routines are executed and now the \"progress_through_time.csv\" has been saved, in which we have columns for \"timestamp, toe, flat, normal\" to mark the timestamps and the types of walking (their counts). The :class:`ProgressThroughTimeVisualization` contains methodologies for quantizing the data and aggregating the information according to viewer's defined specifications and output the data. The final observation, being a completely interactive d3.js based visualization, walks the viewer through all the steps.",
+    "thumbnail": "img/visualization_thumbnails/progress_through_time.png"
+  },
+  {
+    "name": "word_clouds",
+    "description": "The word cloud visualization to demonstrate the importance of words by demonstrating\n                their frequency of occurrence in terms of proportional magnitudes. Visualizations as such,\n                if taken into account cautiously to avoid misleading interpretations, are of immense\n                importance. The input dataframe for this visualization has to include a pure text column named 'COMMENT'.",
+    "thumbnail": "img/visualization_thumbnails/word_clouds.png"
+  }
+]

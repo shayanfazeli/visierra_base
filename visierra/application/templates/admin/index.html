@@ -1,0 +1,72 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+{{ super() }}
+<!-- todo: prepare this HTML with the powerful widgets that you want to design -->
+{% if current_user.is_authenticated %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+      ViSierra
+      <small>Dashboard</small>
+  </h1>
+  <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Dashboard</li>
+
+  </ol>
+    <div>
+        <img src="{{ url_for('static', filename='img/mountains.jpg') }}" style="width: 100%; height:200px;"/>
+
+        <h2>Welcome</h2>
+        <p>Welcome to <it>ViSierra</it>, an ER Lab Project.</p>
+        <p>
+            To start, please choose an option from the panel on the left.
+        </p>
+
+        <p>- Shayan Fazeli [<a href="mailto:shayan@cs.ucla.edu">shayan@cs.ucla.edu</a>]</p>
+        <img src="{{ url_for('static', filename='img/erlab.png') }}" style="width: 200px"/>
+
+    </div>
+</section>
+
+<section class="content">
+
+
+</section>
+<!-- /.content -->
+{% else %}
+
+<center>
+    <section class="content" style="color: white">
+        <div class="col-sm-12">
+            <h1>Flask-Admin example</h1>
+            <p class="lead">
+                Authentication
+            </p>
+            <p>
+                This example shows how you can use Flask-Admin in an admin template, <br> here I used AdminLTE and <a href="https://pythonhosted.org/Flask-Security/index.html" target="_blank">Flask-Security</a> for authentication.
+            </p>
+            {% if not current_user.is_authenticated %}
+            <p>You can register as a regular user, or log in as a superuser with the following credentials: <br><br>
+
+                email: <b>admin</b> <br>
+                password: <b>admin</b> <br>
+                <br>
+                <p>
+                    <a class="btn btn-primary" href="{{ url_for('security.login') }}">Login</a> <a class="btn btn-default" href="{{ url_for('security.register') }}">Register</a>
+                </p>
+                {% endif %}
+                <br>
+                <p>
+                    <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+                </p>
+            </div>
+        </section>
+    </center>
+
+    <br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br>
+ {% endif %}
+
+  {% endblock body %}
